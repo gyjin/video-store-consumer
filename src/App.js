@@ -8,8 +8,6 @@ import {
 } from "react-router-dom";
 import Search from './components/Search';
 
-
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -17,13 +15,13 @@ class App extends Component {
     this.state = {
       allMovies: [],
       rentedMovies: [],
+      searchTerm: '',
     };    
   }
 
   // getAllSearchedMovies = (searchedMoviesArray) => {
   //   this.setState(allMovies: searchedMoviesArray);
   // }
-
 
   render() {
   return (

@@ -19,7 +19,7 @@ class Search extends Component {
 // an input box. Or click a button. Pass the value into the api.
   componentDidMount () {
     const query = 'harry potter';
-    axios.get('https://api.themoviedb.org/3/search/movie?api_key=ecf2c105ca9b748583ff93bf7cbfd7b1&query=' + query)
+    axios.get('https://api.themoviedb.org/3/search/movie?api_key=ecf2c105ca9b748583ff93bf7cbfd7b1&query=searchTerm')
       .then((response) => {
         console.log(response.data.results);
          this.setState({
@@ -30,16 +30,46 @@ class Search extends Component {
       this.setState({error: error.message})});
   }
 
-  render() {
-    return (
-      <div>
-    <h3>Search</h3>
-      </div>
-    );
+  // render() {
+  //   return (
+  //     <div>
+  //   <h3>Search</h3>
+  //     </div>
+  //   );
+  // }
+searchChangeCallback = (event) => { 
+  const value = event.target 
+  this.setState = {
+    searchTerm = value
   }
 }
 
-Search.propTypes = {
+// render filtered list of movies using map?
+return movies.search.results.map () =>
+
+
+  const Search = ({ searchTerm, searchChangeCallback }) => {
+    return (
+      <section>
+        <div>
+          <label className="search--label" htmlFor="search">Search For Movies</label>
+        </div>
+        <input
+          onChange={(event) => { searchChangeCallback(event.target.value) }}
+          value={searchTerm}
+          name="search"
+          id="search"
+          className="search"
+        />
+      </section>
+    );
+  };
+  
+}
+
+SearchBar.propTypes = {
+  searchChangeCallback: PropTypes.func.isRequired,
+  searchTerm: PropTypes.string.isRequired,
 };
 
 export default Search;
