@@ -6,6 +6,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import CustomerCollection from './components/CustomerCollection';
 
 export default function App() {
   return (
@@ -58,7 +59,7 @@ function Library() {
 }
 
 function Customers() {
-  return <h2>This is customers page</h2>;
+  return <CustomerCollection />;
 }
 
 function Home() {
