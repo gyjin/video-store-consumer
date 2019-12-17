@@ -6,8 +6,26 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import Search from './components/Search';
 
-export default function App() {
+
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      allMovies: [],
+      rentedMovies: [],
+    };    
+  }
+
+  // getAllSearchedMovies = (searchedMoviesArray) => {
+  //   this.setState(allMovies: searchedMoviesArray);
+  // }
+
+
+  render() {
   return (
     <Router>
       <div>
@@ -46,12 +64,10 @@ export default function App() {
         </Switch>
       </div>
     </Router>
-  );
+    );
+  }
 }
 
-function Search() {
-  return <h2>This is the search page</h2>;
-}
 
 function Library() {
   return <h2>This is the library page</h2>;
@@ -66,7 +82,7 @@ function Home() {
 }
 
 
-// export default App;
+export default App;
 
 // / (home page)
 // /search (movie search page: allows the user to search for a movie from the external API)
