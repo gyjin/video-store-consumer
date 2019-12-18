@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import CustomerCollection from './components/CustomerCollection';
 
+
 export default function App() {
   return (
     <Router>
@@ -66,10 +67,3 @@ function Home() {
   return <h2>This is home page</h2>;
 }
 
-
-// export default App;
-
-// / (home page)
-// /search (movie search page: allows the user to search for a movie from the external API)
-// /library (rental library page: lists movies in the rental library)
-// /customers (customer list page: lists customers)

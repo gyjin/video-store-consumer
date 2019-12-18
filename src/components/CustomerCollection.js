@@ -23,41 +23,15 @@ class CustomerCollection extends React.Component {
       })
   }
 
-  // togglePresent = (studentEmail) => {
-  //   const { students } = this.state;
-  //   //    const students = this.state.students;
 
-  //   const studentToUpdate = students.find((student) => student.email === studentEmail);
+  selectCustomer = (customer) => {
 
-  //   studentToUpdate.present = !studentToUpdate.present;
+    this.setState({
+      selectedCustomer: customer
+    });
 
-  //   this.setState({
-  //     //students: students,
-  //     students,
-  //   });
-  // }
-
-  // deleteStudent = (studentEmail) => {
-  //   // Use indexOf to get the index
-  //   // Use splice with the index
-
-  //   const updatedStudents =
-  //     this.state.students.filter((student) => student.email !== studentEmail);
-
-  //   this.setState({
-  //     students: updatedStudents,
-  //   });
-  // }
-
-  // addStudent = (newStudent) => {
-  //   console.log("add student ", newStudent.name)
-  //   const students = this.state.students
-  //   students.push(newStudent)
-
-  //   this.setState({
-  //     students
-  //   })
-  // }
+    console.log('this was passed to collection');
+  }
 
   makeCollection () {
     const customerCollection = this.state.customers.map((customer, i) => {
@@ -71,6 +45,7 @@ class CustomerCollection extends React.Component {
         phone={customer.phone}
         accountCredit={customer.account_credit}
         moviesCheckedOutCount={customer.movies_checked_out_count}
+        selectCustomerCallback={this.selectCustomer}
         key={i}
       />;
     }
@@ -81,7 +56,6 @@ class CustomerCollection extends React.Component {
   render () {
     return (
       <div>
-      {/* <NewStudentForm addStudentCallback={this.addStudent}/> */}
       <h3>Customers</h3>
       <ul>
         {this.makeCollection()}
@@ -90,15 +64,6 @@ class CustomerCollection extends React.Component {
     );
   }
 };
-
-// StudentCollection.propTypes = {
-//   people: PropType.arrayOf(PropType.shape({
-//     name: PropType.string.isRequired,
-//     email: PropType.string.isRequired,
-//     class: PropType.string,
-//     present: PropType.bool,
-//   })),
-// };
 
 
 export default CustomerCollection;
