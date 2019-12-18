@@ -25,13 +25,10 @@ class App extends Component {
     this.setState({searchTerm: searchTerm});
   }
 
-  setCustomer = (customer) => {
-
+  setCustomerCallback = (customer) => {
     this.setState({
       selectedCustomer: customer
     });
-
-    console.log('this was passed to application');
   }
 
   render() {
@@ -53,6 +50,7 @@ class App extends Component {
               <Link to="/customers">Customers</Link>
             </li>
           </ul>
+          <p>Selected customer:{this.state.selectedCustomer.name}</p>
         </nav>
 
         {/* A <Switch> looks through its children <Route>s and
@@ -71,14 +69,15 @@ class App extends Component {
 
           <Route path="/customers">
             <CustomerCollection 
-              setCustomerCallback={this.setCustomer}
+              // setCustomerCallback={this.setCustomer}
+              setCustomerCallback={this.setCustomerCallback}
             /> 
           </Route>
 
           <Route path="/">
             <Home />
           </Route>
-          
+
         </Switch>
       </div>
     </Router>
