@@ -9,18 +9,17 @@ import {
 import Search from './components/Search';
 import CustomerCollection from './components/CustomerCollection';
 import MovieCollection from './components/MovieCollection';
+import OverdueRentals from './components/OverdueRentals';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      allMovies: [],
-      rentedMovies: [],
-      searchResults: [],
       searchTerm: '',
       selectedCustomer: '',
       selectedMovie: '',
+      overdueRentals: '',
     };    
   }
 
@@ -31,7 +30,6 @@ class App extends Component {
   }
 
   searchChangeCallback = (searchTerm) => {
-    // console.log(searchTerm);
     this.setState({
       searchTerm: searchTerm
     });
@@ -40,6 +38,12 @@ class App extends Component {
   setMovieCallback = (movie) => {
     this.setState({
       selectedMovie: movie
+    });
+  }
+
+  setOverdueRentalsCallback = (rentals) => {
+    this.setState({
+      overdueRentals: rentals
     });
   }
 
@@ -61,9 +65,16 @@ class App extends Component {
             <li>
               <Link to="/customers">Customers</Link>
             </li>
+            <li>
+              <Link to="/overduerentals">Overdue Rentals</Link>
+            </li>
           </ul>
           <p>Selected customer: {this.state.selectedCustomer.name}</p>
           <p>Selected movie: {this.state.selectedMovie.title}</p>
+
+          <p>
+            Rent this movie to this costumer:
+          </p>
 
         </nav>
 
@@ -86,6 +97,11 @@ class App extends Component {
           <Route path="/customers">
             <CustomerCollection 
               setCustomerCallback={this.setCustomerCallback}
+            /> 
+          </Route>
+
+          <Route path="/overduerentals">
+            <OverdueRentals 
             /> 
           </Route>
 

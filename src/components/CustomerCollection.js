@@ -42,7 +42,8 @@ class CustomerCollection extends React.Component {
       />;
     }
     );
-    return customerCollection
+
+    return customerCollection;
   }
 
   render () {

@@ -21,7 +21,7 @@ class MovieCollection extends React.Component {
       })
   }
 
-  setMoive = (movie) => {
+  setMovie = (movie) => {
     this.props.setMovieCallback(movie);
   }
 
@@ -38,7 +38,8 @@ class MovieCollection extends React.Component {
       />;
     }
     );
-    return movieCollection
+    
+    return movieCollection;
   }
 
   render () {
