@@ -37,37 +37,38 @@ class Search extends Component {
   //     </div>
   //   );
   // }
-searchChangeCallback = (event) => { 
-  const value = event.target 
-  this.setState = {
-    searchTerm = value
+  searchChangeCallback = (event) => { 
+    const value = event.target; 
+    console.log(value)
+    this.setState({
+      searchTerm : value
+    })
   }
-}
 
-// render filtered list of movies using map?
-return movies.search.results.map () =>
+// // render filtered list of movies using map?
+// return movies.search.results.map () =>
 
 
-  const Search = ({ searchTerm, searchChangeCallback }) => {
+  render() {
     return (
       <section>
         <div>
           <label className="search--label" htmlFor="search">Search For Movies</label>
         </div>
         <input
-          onChange={(event) => { searchChangeCallback(event.target.value) }}
-          value={searchTerm}
+          onChange={(event) => { this.props.searchChangeCallback(event.target.value) }}
+          value={this.props.searchTerm}
           name="search"
           id="search"
           className="search"
         />
       </section>
     );
-  };
-  
+  }
 }
 
-SearchBar.propTypes = {
+
+Search.propTypes = {
   searchChangeCallback: PropTypes.func.isRequired,
   searchTerm: PropTypes.string.isRequired,
 };

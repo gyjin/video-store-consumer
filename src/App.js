@@ -19,9 +19,9 @@ class App extends Component {
     };    
   }
 
-  // getAllSearchedMovies = (searchedMoviesArray) => {
-  //   this.setState(allMovies: searchedMoviesArray);
-  // }
+  searchChangeCallback = (searchTerm) => {
+    this.setState({searchTerm: searchTerm});
+  }
 
   render() {
   return (
@@ -48,7 +48,11 @@ class App extends Component {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/search">
-            <Search />
+            <Search
+              searchChangeCallback={this.searchChangeCallback}
+              searchTerm={this.state.searchTerm}
+              />
+
           </Route>
           <Route path="/library">
             <Library />
