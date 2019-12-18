@@ -9,6 +9,7 @@ import {
 import Search from './components/Search';
 import CustomerCollection from './components/CustomerCollection';
 import MovieCollection from './components/MovieCollection';
+import OverdueRentals from './components/OverdueRentals';
 
 class App extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class App extends Component {
       searchTerm: '',
       selectedCustomer: '',
       selectedMovie: '',
+      overdueRentals: '',
     };    
   }
 
@@ -43,6 +45,12 @@ class App extends Component {
     });
   }
 
+  setOverdueRentalsCallback = (rentals) => {
+    this.setState({
+      overdueRentals: rentals
+    });
+  }
+
   render() {
   return (
     <Router>
@@ -60,6 +68,9 @@ class App extends Component {
             </li>
             <li>
               <Link to="/customers">Customers</Link>
+            </li>
+            <li>
+              <Link to="/overduerentals">Overdue Rentals</Link>
             </li>
           </ul>
           <p>Selected customer: {this.state.selectedCustomer.name}</p>
@@ -86,6 +97,12 @@ class App extends Component {
           <Route path="/customers">
             <CustomerCollection 
               setCustomerCallback={this.setCustomerCallback}
+            /> 
+          </Route>
+
+          <Route path="/overduerentals">
+            <OverdueRentals 
+              // overdueRentalsCallback={this.setOverdueRentalsCallback}
             /> 
           </Route>
 
