@@ -22,7 +22,7 @@ class Search extends Component {
     axios.get('https://api.themoviedb.org/3/search/movie?api_key=ecf2c105ca9b748583ff93bf7cbfd7b1&query=searchTerm')
       .then((response) => {
         console.log(response.data.results);
-         this.setState({
+          this.setState({
           allMovies: response.data.results,
         });
       })

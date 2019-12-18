@@ -31,6 +31,12 @@ class CustomerCollection extends React.Component {
     });
 
     console.log('this was passed to collection');
+
+    this.setCustomer(this.state.selectedCustomer);
+  }
+
+  setCustomer = (customer) => {
+    this.props.setCustomerCallback(customer);
   }
 
   makeCollection () {

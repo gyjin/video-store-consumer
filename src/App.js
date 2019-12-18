@@ -17,11 +17,21 @@ class App extends Component {
       allMovies: [],
       rentedMovies: [],
       searchTerm: '',
+      selectedCustomer: '',
     };    
   }
 
   searchChangeCallback = (searchTerm) => {
     this.setState({searchTerm: searchTerm});
+  }
+
+  setCustomer = (customer) => {
+
+    this.setState({
+      selectedCustomer: customer
+    });
+
+    console.log('this was passed to application');
   }
 
   render() {
@@ -52,18 +62,23 @@ class App extends Component {
             <Search
               searchChangeCallback={this.searchChangeCallback}
               searchTerm={this.state.searchTerm}
-              />
-
+            />
           </Route>
+
           <Route path="/library">
             <Library />
           </Route>
+
           <Route path="/customers">
-            <Customers />
+            <CustomerCollection 
+              setCustomerCallback={this.setCustomer}
+            /> 
           </Route>
+
           <Route path="/">
             <Home />
           </Route>
+          
         </Switch>
       </div>
     </Router>
@@ -74,10 +89,6 @@ class App extends Component {
 
 function Library() {
   return <h2>This is the library page</h2>;
-}
-
-function Customers() {
-  return <CustomerCollection />;
 }
 
 function Home() {
