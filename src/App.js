@@ -7,6 +7,7 @@ import {
   Link
 } from "react-router-dom";
 import Search from './components/Search';
+import CustomerCollection from './components/CustomerCollection';
 
 class App extends Component {
   constructor(props) {
@@ -76,17 +77,13 @@ function Library() {
 }
 
 function Customers() {
-  return <h2>This is customers page</h2>;
+  return <CustomerCollection />;
 }
 
 function Home() {
   return <h2>This is home page</h2>;
 }
 
-
 export default App;
 
-// / (home page)
-// /search (movie search page: allows the user to search for a movie from the external API)
-// /library (rental library page: lists movies in the rental library)
-// /customers (customer list page: lists customers)
+
