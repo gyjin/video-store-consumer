@@ -18,11 +18,18 @@ class App extends Component {
       rentedMovies: [],
       searchResults: [],
       searchTerm: '',
+      selectedCustomer: '',
     };    
   }
 
   searchChangeCallback = (searchTerm) => {
     this.setState({searchTerm: searchTerm});
+  }
+
+  setCustomerCallback = (customer) => {
+    this.setState({
+      selectedCustomer: customer
+    });
   }
 
   render() {
@@ -44,6 +51,7 @@ class App extends Component {
               <Link to="/customers">Customers</Link>
             </li>
           </ul>
+          <p>Selected customer:{this.state.selectedCustomer.name}</p>
         </nav>
 
         {/* A <Switch> looks through its children <Route>s and
@@ -53,18 +61,24 @@ class App extends Component {
             <Search
               searchChangeCallback={this.searchChangeCallback}
               searchTerm={this.state.searchTerm}
-              />
-
+            />
           </Route>
+
           <Route path="/library">
             <Library />
           </Route>
+
           <Route path="/customers">
-            <Customers />
+            <CustomerCollection 
+              // setCustomerCallback={this.setCustomer}
+              setCustomerCallback={this.setCustomerCallback}
+            /> 
           </Route>
+
           <Route path="/">
             <Home />
           </Route>
+
         </Switch>
       </div>
     </Router>
@@ -75,10 +89,6 @@ class App extends Component {
 
 function Library() {
   return <h2>This is the library page</h2>;
-}
-
-function Customers() {
-  return <CustomerCollection />;
 }
 
 function Home() {
