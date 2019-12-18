@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Search from './components/Search';
 import CustomerCollection from './components/CustomerCollection';
+import MovieCollection from './components/MovieCollection';
 
 class App extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class App extends Component {
       rentedMovies: [],
       searchTerm: '',
       selectedCustomer: '',
+      selectedMovie: '',
     };    
   }
 
@@ -28,6 +30,12 @@ class App extends Component {
   setCustomerCallback = (customer) => {
     this.setState({
       selectedCustomer: customer
+    });
+  }
+
+  setMovieCallback = (movie) => {
+    this.setState({
+      selectedMovie: movie
     });
   }
 
@@ -50,7 +58,9 @@ class App extends Component {
               <Link to="/customers">Customers</Link>
             </li>
           </ul>
-          <p>Selected customer:{this.state.selectedCustomer.name}</p>
+          <p>Selected customer: {this.state.selectedCustomer.name}</p>
+          <p>Selected movie: {this.state.selectedMovie.title}</p>
+
         </nav>
 
         {/* A <Switch> looks through its children <Route>s and
@@ -64,12 +74,13 @@ class App extends Component {
           </Route>
 
           <Route path="/library">
-            <Library />
+            <MovieCollection
+            setMovieCallback={this.setMovieCallback}
+            />
           </Route>
 
           <Route path="/customers">
             <CustomerCollection 
-              // setCustomerCallback={this.setCustomer}
               setCustomerCallback={this.setCustomerCallback}
             /> 
           </Route>
@@ -83,11 +94,6 @@ class App extends Component {
     </Router>
     );
   }
-}
-
-
-function Library() {
-  return <h2>This is the library page</h2>;
 }
 
 function Home() {

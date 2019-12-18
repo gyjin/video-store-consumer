@@ -11,7 +11,6 @@ class CustomerCollection extends React.Component {
     }
   }
 
-
   componentDidMount() {
     axios.get('http://localhost:3000/customers')
       .then((response) => {
@@ -21,7 +20,6 @@ class CustomerCollection extends React.Component {
         this.setState({error: error.message})
       })
   }
-
 
   setCustomer = (customer) => {
     this.props.setCustomerCallback(customer);
@@ -58,6 +56,5 @@ class CustomerCollection extends React.Component {
     );
   }
 };
-
 
 export default CustomerCollection;
