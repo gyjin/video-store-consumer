@@ -16,9 +16,6 @@ class App extends Component {
     super(props);
 
     this.state = {
-      allMovies: [],
-      rentedMovies: [],
-      searchResults: [],
       searchTerm: '',
       selectedCustomer: '',
       selectedMovie: '',
@@ -33,7 +30,6 @@ class App extends Component {
   }
 
   searchChangeCallback = (searchTerm) => {
-    // console.log(searchTerm);
     this.setState({
       searchTerm: searchTerm
     });
@@ -76,6 +72,10 @@ class App extends Component {
           <p>Selected customer: {this.state.selectedCustomer.name}</p>
           <p>Selected movie: {this.state.selectedMovie.title}</p>
 
+          <p>
+            Rent this movie to this costumer:
+          </p>
+
         </nav>
 
         {/* A <Switch> looks through its children <Route>s and
@@ -102,7 +102,6 @@ class App extends Component {
 
           <Route path="/overduerentals">
             <OverdueRentals 
-              // overdueRentalsCallback={this.setOverdueRentalsCallback}
             /> 
           </Route>
 
