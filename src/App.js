@@ -22,14 +22,15 @@ class App extends Component {
     };    
   }
 
-  searchChangeCallback = (searchTerm) => {
-    this.setState({searchTerm: searchTerm});
-  }
-
   setCustomerCallback = (customer) => {
     this.setState({
       selectedCustomer: customer
     });
+  }
+
+  searchChangeCallback = (searchTerm) => {
+    // console.log(searchTerm);
+    this.setState({searchTerm: searchTerm});
   }
 
   render() {
