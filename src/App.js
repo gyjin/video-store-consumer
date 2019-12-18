@@ -6,10 +6,25 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import Search from './components/Search';
 import CustomerCollection from './components/CustomerCollection';
 
+class App extends Component {
+  constructor(props) {
+    super(props);
 
-export default function App() {
+    this.state = {
+      allMovies: [],
+      rentedMovies: [],
+      searchTerm: '',
+    };    
+  }
+
+  searchChangeCallback = (searchTerm) => {
+    this.setState({searchTerm: searchTerm});
+  }
+
+  render() {
   return (
     <Router>
       <div>
@@ -34,7 +49,11 @@ export default function App() {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/search">
-            <Search />
+            <Search
+              searchChangeCallback={this.searchChangeCallback}
+              searchTerm={this.state.searchTerm}
+              />
+
           </Route>
           <Route path="/library">
             <Library />
@@ -48,12 +67,10 @@ export default function App() {
         </Switch>
       </div>
     </Router>
-  );
+    );
+  }
 }
 
-function Search() {
-  return <h2>This is the search page</h2>;
-}
 
 function Library() {
   return <h2>This is the library page</h2>;
@@ -66,4 +83,7 @@ function Customers() {
 function Home() {
   return <h2>This is home page</h2>;
 }
+
+export default App;
+
 
