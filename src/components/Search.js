@@ -39,7 +39,13 @@ class Search extends Component {
   makeSearchCollection () {
     const searchCollection = this.state.allMovies.map((movie, i) => {
       // console.log(movie);
-      return <div key={i}>{movie.title}</div>;
+      return <div key={i}> <h1>{movie.title}</h1>
+          <img src={movie.image_url}></img>
+          <p>Id: {movie.id}</p>
+          <p>Overview: {movie.overview}</p>
+          <p>Release Date: {movie.release_date}</p>
+      </div>;
+      // do we make this standalone component or modify code here to pass in the callback for 'selection'?
     
     }
     );
