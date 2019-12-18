@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 const Customer = (props) => {
 
   const selectCustomer = () => {
-    console.log('this was pressed');
     props.selectCustomerCallback(props);
   }
 

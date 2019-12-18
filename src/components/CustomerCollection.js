@@ -8,7 +8,6 @@ class CustomerCollection extends React.Component {
 
     this.state = {
       customers: [],
-      selectedCustomer: '',
     }
   }
 
@@ -24,13 +23,8 @@ class CustomerCollection extends React.Component {
   }
 
 
-  selectCustomer = (customer) => {
-
-    this.setState({
-      selectedCustomer: customer
-    });
-
-    console.log('this was passed to collection');
+  setCustomer = (customer) => {
+    this.props.setCustomerCallback(customer);
   }
 
   makeCollection () {
@@ -45,7 +39,7 @@ class CustomerCollection extends React.Component {
         phone={customer.phone}
         accountCredit={customer.account_credit}
         moviesCheckedOutCount={customer.movies_checked_out_count}
-        selectCustomerCallback={this.selectCustomer}
+        selectCustomerCallback={this.props.setCustomerCallback}
         key={i}
       />;
     }
