@@ -17,19 +17,23 @@ class App extends Component {
     this.state = {
       allMovies: [],
       rentedMovies: [],
+      searchResults: [],
       searchTerm: '',
       selectedCustomer: '',
       selectedMovie: '',
     };    
   }
 
-  searchChangeCallback = (searchTerm) => {
-    this.setState({searchTerm: searchTerm});
-  }
-
   setCustomerCallback = (customer) => {
     this.setState({
       selectedCustomer: customer
+    });
+  }
+
+  searchChangeCallback = (searchTerm) => {
+    // console.log(searchTerm);
+    this.setState({
+      searchTerm: searchTerm
     });
   }
 
