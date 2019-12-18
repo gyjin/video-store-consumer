@@ -16,6 +16,7 @@ class App extends Component {
     this.state = {
       allMovies: [],
       rentedMovies: [],
+      searchResults: [],
       searchTerm: '',
     };    
   }

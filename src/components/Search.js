@@ -29,14 +29,7 @@ class Search extends Component {
       .catch((error) => {
       this.setState({error: error.message})});
   }
-
-  // render() {
-  //   return (
-  //     <div>
-  //   <h3>Search</h3>
-  //     </div>
-  //   );
-  // }
+  
   searchChangeCallback = (event) => { 
     const value = event.target; 
     console.log(value)
@@ -44,10 +37,6 @@ class Search extends Component {
       searchTerm : value
     })
   }
-
-// // render filtered list of movies using map?
-// return movies.search.results.map () =>
-
 
   render() {
     return (
@@ -62,9 +51,13 @@ class Search extends Component {
           id="search"
           className="search"
         />
+      <ol>
+        <button onChange={this.searchChangeCallback }>Search for Movies</button> 
+      </ol>
       </section>
     );
   }
+
 }
 
 
