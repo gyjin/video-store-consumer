@@ -6,27 +6,15 @@ class MovieCollection extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      movies: [],
-    }
   }
 
-  componentDidMount() {
-    axios.get('http://localhost:3000/movies')
-      .then((response) => {
-        this.setState({movies: response.data})
-      })
-      .catch((error) => {
-        this.setState({error: error.message})
-      })
-  }
 
   setMovie = (movie) => {
     this.props.setMovieCallback(movie);
   }
 
   makeCollection () {
-    const movieCollection = this.state.movies.map((movie, i) => {
+    const movieCollection = this.props.movies.map((movie, i) => {
       return <Movie
         title={movie.title}
         overview={movie.overview}
