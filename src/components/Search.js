@@ -35,13 +35,10 @@ class Search extends Component {
           <img src={movie.image_url}></img>
           <p>Id: {movie.id}</p>
           <p>Overview: {movie.overview}</p>
-          <p>Release Date: {movie.release_date}</p>
-    
-      // do we make this standalone component or modify code here to pass in the callback for 'selection'?
-    
+          <p>Release Date: {movie.release_date}</p>    
 
-      // button for adding to library
-      <button>Add this movie to library</button>
+{/*once button is clicked, selection is put inside Library from API external */}
+      <button onClick={() => this.props.addMovieToLibraryCallback(movie)}>Add this movie to library</button>
       </div>;
     }
     );

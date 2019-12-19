@@ -11,6 +11,7 @@ import CustomerCollection from './components/CustomerCollection';
 import MovieCollection from './components/MovieCollection';
 import RentalCollection from './components/RentalCollection';
 import Rental from './components/Rental';
+import axios from 'axios';
 
 class App extends Component {
   constructor(props) {
@@ -21,7 +22,21 @@ class App extends Component {
       selectedCustomer: '',
       selectedMovie: '',
       makeRentalError: '',
+      movies: [],
+      error: '',
     };    
+  }
+
+  componentDidMount() {
+    const movies = 'http://localhost:3000/movies'
+    axios.get(movies).then((response) => {
+      this.setState({
+        movies: response.data,
+      });
+    })
+    .catch((error) => {
+      this.setState({ error: error.message });    
+    });
   }
 
   setCustomerCallback = (customer) => {
@@ -56,6 +71,15 @@ class App extends Component {
       this.setState({makeRentalError: error});
       // <RentalCollection movie={this.state.selectedMovie} customer={this.state.selectedCustomer}/>
     }
+
+  addMovieToLibraryCallback = (movie) => {
+    console.log('added movie');
+    console.log(movie);
+    this.setState({movies: [...this.state.movies, movie]
+      // appends movie to array movies
+    });
+  }
+
   }
 
   render() {
@@ -96,12 +120,15 @@ class App extends Component {
             <Search
               searchChangeCallback={this.searchChangeCallback}
               searchTerm={this.state.searchTerm}
+              addMovieToLibraryCallback={this.addMovieToLibraryCallback}
+
             />
           </Route>
 
           <Route path="/library">
             <MovieCollection
             setMovieCallback={this.setMovieCallback}
+            movies={this.state.movies}
             />
           </Route>
 
