@@ -7,12 +7,12 @@ const Movie = (props) => {
     props.selectMovieCallback(props);
   }
 
-    return (
-      <li>
-        {props.title} 
-        <button onClick={ selectMovie }>Select this movie</button>
-      </li>
-    );
+  return (
+    <li>
+      {props.title} 
+      <button onClick={ selectMovie }>Select this movie</button>
+    </li>
+  );
 };
 
 export default Movie;

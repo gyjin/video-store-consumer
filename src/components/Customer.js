@@ -7,12 +7,12 @@ const Customer = (props) => {
     props.selectCustomerCallback(props);
   }
 
-    return (
-      <li>
-        {props.name} 
-        <button onClick={ selectCustomer }>Select this customer</button>
-      </li>
-    );
+  return (
+    <li>
+      {props.name} 
+      <button onClick={ selectCustomer }>Select this customer</button>
+    </li>
+  );
 };
 
 export default Customer;

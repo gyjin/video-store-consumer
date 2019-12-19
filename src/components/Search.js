@@ -7,12 +7,9 @@ class Search extends Component {
   constructor(props) {
     super(props);
 
-
     this.state = {
       allMovies: [],
     };  
-
-    console.log(props.cardsList);
   }
 
 // TODO: Instead of loading the api on mount, call it the api when you enter into 
@@ -27,7 +24,6 @@ class Search extends Component {
       .catch((error) => {
       this.setState({error: error.message})});
   }
-
 
   makeSearchCollection () {
     const searchCollection = this.state.allMovies.map((movie, i) => {
@@ -44,7 +40,6 @@ class Search extends Component {
     );
     return searchCollection;
   }
-
 
   getMoviesCallback() {
     this.apiCall(this.props.searchTerm);
@@ -73,9 +68,7 @@ class Search extends Component {
       </section>
     );
   }
-
 }
-
 
 Search.propTypes = {
   searchChangeCallback: PropTypes.func.isRequired,
