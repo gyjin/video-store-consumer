@@ -6,26 +6,11 @@ export class Library extends Component {
     super(props);
 
     this.state = {
-      movies: [],
-      error: '',
     };
   }
-
-  componentDidMount() {
-    const movies = 'http://localhost:3000/movies'
-    axios.get(movies).then((response) => {
-      this.setState({
-        movies: response.data,
-      });
-    })
-    .catch((error) => {
-      this.setState({ error: error.message });    
-    });
-  }
-
   
   render() {
-    const movieInfo = this.state.movies.map((movie, i) => {
+    const movieInfo = this.props.movies.map((movie, i) => {
       return (
         <div>
           <img src={movie.image_url}></img>
