@@ -9,7 +9,8 @@ import {
 import Search from './components/Search';
 import CustomerCollection from './components/CustomerCollection';
 import MovieCollection from './components/MovieCollection';
-import OverdueRentals from './components/OverdueRentals';
+import RentalCollection from './components/RentalCollection';
+import Rental from './components/Rental';
 import axios from 'axios';
 
 class App extends Component {
@@ -20,7 +21,7 @@ class App extends Component {
       searchTerm: '',
       selectedCustomer: '',
       selectedMovie: '',
-      overdueRentals: '',
+      makeRentalError: '',
       movies: [],
       error: '',
     };    
@@ -56,6 +57,21 @@ class App extends Component {
     });
   }
 
+  makeRental = () => {
+    console.log("make rental");
+    let error;
+    if (this.state.selectedCustomer === '') {
+      error = "You must select a customer to check-out."
+      this.setState({makeRentalError: error});
+    } else if (this.state.selectedMovie === '') {
+      error = "You must select a movie to check-out." 
+      this.setState({makeRentalError: error});
+    } else {
+      error = ''
+      this.setState({makeRentalError: error});
+      // <RentalCollection movie={this.state.selectedMovie} customer={this.state.selectedCustomer}/>
+    }
+
   addMovieToLibraryCallback = (movie) => {
     console.log('added movie');
     console.log(movie);
@@ -64,10 +80,6 @@ class App extends Component {
     });
   }
 
-  setOverdueRentalsCallback = (rentals) => {
-    this.setState({
-      overdueRentals: rentals
-    });
   }
 
   render() {
@@ -89,14 +101,14 @@ class App extends Component {
               <Link to="/customers">Customers</Link>
             </li>
             <li>
-              <Link to="/overduerentals">Overdue Rentals</Link>
+              <Link to="/rentals">All Rentals</Link>
             </li>
           </ul>
           <p>Selected customer: {this.state.selectedCustomer.name}</p>
           <p>Selected movie: {this.state.selectedMovie.title}</p>
 
           <p>
-            Rent this movie to this costumer:
+            Rent this movie to this customer: {this.state.makeRentalError} <button onClick={this.makeRental}>Make rental</button>
           </p>
 
         </nav>
@@ -126,8 +138,8 @@ class App extends Component {
             /> 
           </Route>
 
-          <Route path="/overduerentals">
-            <OverdueRentals 
+          <Route path="/rentals">
+            <RentalCollection 
             /> 
           </Route>
 
