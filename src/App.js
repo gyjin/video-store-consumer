@@ -71,6 +71,7 @@ class App extends Component {
       this.setState({makeRentalError: error});
       // <RentalCollection movie={this.state.selectedMovie} customer={this.state.selectedCustomer}/>
     }
+  }
 
   addMovieToLibraryCallback = (movie) => {
     console.log('added movie');
@@ -78,8 +79,6 @@ class App extends Component {
     this.setState({movies: [...this.state.movies, movie]
       // appends movie to array movies
     });
-  }
-
   }
 
   render() {
