@@ -29,6 +29,7 @@ class CustomerCollection extends React.Component {
     const customerCollection = this.state.customers.map((customer, i) => {
       return <Customer
         name={customer.name}
+        customerId={customer.id}
         registeredAt={customer.registered_at}
         address={customer.address}
         city={customer.city}

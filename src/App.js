@@ -10,7 +10,6 @@ import Search from './components/Search';
 import CustomerCollection from './components/CustomerCollection';
 import MovieCollection from './components/MovieCollection';
 import RentalCollection from './components/RentalCollection';
-import Rental from './components/Rental';
 import axios from 'axios';
 
 class App extends Component {
@@ -23,7 +22,11 @@ class App extends Component {
       selectedMovie: '',
       makeRentalError: '',
       movies: [],
-      error: '',
+      rentals: [],
+      movieError: '',
+      rentalError: '',
+      newRentalError: '',
+      successRental: '',
     };    
   }
 
@@ -35,7 +38,15 @@ class App extends Component {
       });
     })
     .catch((error) => {
-      this.setState({ error: error.message });    
+      this.setState({ movieError: error.message });    
+    });
+
+    const rentals = 'http://localhost:3000/rentals/overdue'
+    axios.get(rentals).then((response) => {
+      this.setState({rentals: response.data});
+    })
+    .catch((error) => {
+      this.setState({rentalError: error.message}); 
     });
   }
 
@@ -67,9 +78,21 @@ class App extends Component {
       error = "You must select a movie to check-out." 
       this.setState({makeRentalError: error});
     } else {
-      error = ''
+      error = '';
       this.setState({makeRentalError: error});
-      // <RentalCollection movie={this.state.selectedMovie} customer={this.state.selectedCustomer}/>
+      let date = new Date()
+      let params = {
+        customer_id: this.state.selectedCustomer.customerId,
+        due_date: date
+      };
+
+      axios.post('http://localhost:3000/rentals/' + `${this.state.selectedMovie.title}` + '/check-out', params)
+      .then((response) => {
+        this.setState({successRental: 'Successfully checked-out.'})
+      })
+      .catch((error) => {
+        this.setState({newRentalError: error.message})
+      });
     }
   }
 
@@ -100,7 +123,7 @@ class App extends Component {
               <Link to="/customers">Customers</Link>
             </li>
             <li>
-              <Link to="/rentals">All Rentals</Link>
+              <Link to="/rentals">Overdue Rentals</Link>
             </li>
           </ul>
           <p>Selected customer: {this.state.selectedCustomer.name}</p>
@@ -108,6 +131,7 @@ class App extends Component {
 
           <p>
             Rent this movie to this customer: {this.state.makeRentalError} <button onClick={this.makeRental}>Make rental</button>
+            {this.state.successRental}
           </p>
 
         </nav>
@@ -139,6 +163,7 @@ class App extends Component {
 
           <Route path="/rentals">
             <RentalCollection 
+            rentals={this.state.rentals}
             /> 
           </Route>
 

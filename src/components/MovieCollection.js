@@ -1,13 +1,10 @@
 import React from 'react';
 import Movie from './Movie';
-import axios from 'axios';
 
 class MovieCollection extends React.Component {
   constructor(props) {
     super(props);
-
   }
-
 
   setMovie = (movie) => {
     this.props.setMovieCallback(movie);
@@ -24,7 +21,7 @@ class MovieCollection extends React.Component {
         selectMovieCallback={this.props.setMovieCallback}
         key={i}
       />;
-    }
+      }
     );
     
     return movieCollection;
