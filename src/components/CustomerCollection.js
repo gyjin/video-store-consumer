@@ -5,20 +5,6 @@ import axios from 'axios';
 class CustomerCollection extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      customers: [],
-    }
-  }
-
-  componentDidMount() {
-    axios.get('http://localhost:3000/customers')
-      .then((response) => {
-        this.setState({customers: response.data})
-      })
-      .catch((error) => {
-        this.setState({error: error.message})
-      })
   }
 
   setCustomer = (customer) => {
@@ -26,7 +12,7 @@ class CustomerCollection extends React.Component {
   }
 
   makeCollection () {
-    const customerCollection = this.state.customers.map((customer, i) => {
+    const customerCollection = this.props.customers.map((customer, i) => {
       return <Customer
         name={customer.name}
         customerId={customer.id}

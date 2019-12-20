@@ -52,3 +52,21 @@ nav li a:hover {
   background-color: #6a5784;
 }
 
+.selected {
+  border: 1px solid #6a5784;
+  display: inline-block;
+  margin: 10px;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.rental-error {
+  color: red;
+  margin: 10px;
+}
+
+.rental-success {
+  color: green;
+  margin: 10px;
+}
+

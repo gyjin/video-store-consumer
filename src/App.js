@@ -11,6 +11,8 @@ import CustomerCollection from './components/CustomerCollection';
 import MovieCollection from './components/MovieCollection';
 import RentalCollection from './components/RentalCollection';
 import axios from 'axios';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import Button from 'react-bootstrap/Button'
 
 class App extends Component {
   constructor(props) {
@@ -23,8 +25,10 @@ class App extends Component {
       makeRentalError: '',
       movies: [],
       rentals: [],
+      customers: [],
       movieError: '',
       rentalError: '',
+      customerError: '',
       newRentalError: '',
       successRental: '',
     };    
@@ -38,7 +42,7 @@ class App extends Component {
       });
     })
     .catch((error) => {
-      this.setState({ movieError: error.message });    
+      this.setState({movieError: error.message });    
     });
 
     const rentals = 'http://localhost:3000/rentals/overdue'
@@ -47,6 +51,16 @@ class App extends Component {
     })
     .catch((error) => {
       this.setState({rentalError: error.message}); 
+    });
+
+    const customers = 'http://localhost:3000/customers'
+    axios.get(customers).then((response) => {
+      this.setState({
+        customers: response.data,
+      });
+    })
+    .catch((error) => {
+      this.setState({customerError: error.message});
     });
   }
 
@@ -71,7 +85,10 @@ class App extends Component {
   makeRental = () => {
     console.log("make rental");
     let error;
-    if (this.state.selectedCustomer === '') {
+    if (this.state.selectedCustomer === '' && this.state.selectedMovie === '') {
+      error = "You must select a movie and a customer to check-out."
+      this.setState({makeRentalError: error});
+    } else if (this.state.selectedCustomer === '') {
       error = "You must select a customer to check-out."
       this.setState({makeRentalError: error});
     } else if (this.state.selectedMovie === '') {
@@ -80,15 +97,16 @@ class App extends Component {
     } else {
       error = '';
       this.setState({makeRentalError: error});
-      let date = new Date()
+      let date = new Date();
+      let due = new Date(date.setDate(date.getDate() + 7));
       let params = {
         customer_id: this.state.selectedCustomer.customerId,
-        due_date: date
+        due_date: due
       };
 
       axios.post('http://localhost:3000/rentals/' + `${this.state.selectedMovie.title}` + '/check-out', params)
       .then((response) => {
-        this.setState({successRental: 'Successfully checked-out.'})
+        this.setState({successRental: 'Successfully checked-out!'})
       })
       .catch((error) => {
         this.setState({newRentalError: error.message})
@@ -126,13 +144,35 @@ class App extends Component {
               <Link to="/rentals">Overdue Rentals</Link>
             </li>
           </ul>
-          <p>Selected customer: {this.state.selectedCustomer.name}</p>
-          <p>Selected movie: {this.state.selectedMovie.title}</p>
 
-          <p>
-            Rent this movie to this customer: {this.state.makeRentalError} <button onClick={this.makeRental}>Make rental</button>
+          <section>
+
+            <div class='selected'>
+              Selected customer: {this.state.selectedCustomer.name}
+            </div>
+            <br />
+
+            <div class='selected'>
+              Selected movie: {this.state.selectedMovie.title}
+            </div>
+            <br />
+
+            <button onClick={this.makeRental} type="button" class="btn btn-outline-secondary">
+              Rent this movie to this customer
+              {/* show rental error is possible in alert */}
+              {/* show successRental as well in alert */}
+            </button>
+            <br />
+
+            <div class='rental-error'>
+            {this.state.makeRentalError}
+            </div>
+
+            <div class='rental-success'>
             {this.state.successRental}
-          </p>
+            </div>
+      
+          </section>
 
         </nav>
 
@@ -159,6 +199,7 @@ class App extends Component {
           <Route path="/customers">
             <CustomerCollection 
               setCustomerCallback={this.setCustomerCallback}
+              customers={this.state.customers}
             /> 
           </Route>
 
