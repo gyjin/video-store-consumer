@@ -27,11 +27,11 @@ class Search extends Component {
 
   makeSearchCollection () {
     const searchCollection = this.state.allMovies.map((movie, i) => {
-      return <div key={i}> <h1>{movie.title}</h1>
+      return <div className="flex-item" key={i}> <strong>{movie.title}</strong>
           <img src={movie.image_url}></img>
-          <p>Id: {movie.id}</p>
-          <p>Overview: {movie.overview}</p>
-          <p>Release Date: {movie.release_date}</p>    
+          {/* <p>Id: {movie.id}</p> */}
+          <p>{movie.overview}</p>
+          <p className="release-date">Release Date: {movie.release_date}</p>    
 
 {/*once button is clicked, selection is put inside Library from API external */}
       <button onClick={() => this.props.addMovieToLibraryCallback(movie)}>Add this movie to library</button>
@@ -49,22 +49,32 @@ class Search extends Component {
     return (
       <section>
       
-        <div>
-          <label className="search--label" htmlFor="search">Search For Movies</label>
-        </div>
-        <input
-          onChange={(event) => { this.props.searchChangeCallback(event.target.value) }}
-          value={this.props.searchTerm}
-          name="search"
-          id="search"
-          className="search"
-        />
-      <ol>
-      <button onClick={this.getMoviesCallback.bind(this)}>Search for Movies</button>
-      </ol>
 
+        <div class="input-group mb-3">
+          <input 
+            type="text" 
+            className="form-control search-input" 
+            placeholder="Search for Movie here" 
+            aria-label="Search for Movie here" 
+            onChange={(event) => { this.props.searchChangeCallback(event.target.value) }}
+            value={this.props.searchTerm}
+            name="search"
+            />
+          <div class="input-group-append">
+            <button 
+                className="btn btn-search" 
+                type="button" 
+                onClick={this.getMoviesCallback.bind(this)}>Search</button>
+          </div>
+        </div>
+
+
+ 
+
+      <strong>Search Results: </strong>
+      <div className="flex-container wrap">
       {this.makeSearchCollection()}
-    
+      </div>
       </section>
     );
   }
