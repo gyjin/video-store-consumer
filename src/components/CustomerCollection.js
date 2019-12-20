@@ -1,24 +1,10 @@
 import React from 'react';
 import Customer from './Customer';
-import axios from 'axios';
+import PropTypes from 'prop-types';
 
 class CustomerCollection extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      customers: [],
-    }
-  }
-
-  componentDidMount() {
-    axios.get('http://localhost:3000/customers')
-      .then((response) => {
-        this.setState({customers: response.data})
-      })
-      .catch((error) => {
-        this.setState({error: error.message})
-      })
   }
 
   setCustomer = (customer) => {
@@ -26,7 +12,7 @@ class CustomerCollection extends React.Component {
   }
 
   makeCollection () {
-    const customerCollection = this.state.customers.map((customer, i) => {
+    const customerCollection = this.props.customers.map((customer, i) => {
       return <Customer
         name={customer.name}
         customerId={customer.id}
@@ -41,7 +27,7 @@ class CustomerCollection extends React.Component {
         selectCustomerCallback={this.props.setCustomerCallback}
         key={i}
       />;
-    }
+      }
     );
 
     return customerCollection;
@@ -50,13 +36,31 @@ class CustomerCollection extends React.Component {
   render () {
     return (
       <div>
-      <h3>Customers</h3>
-      <ul>
-        {this.makeCollection()}
-      </ul>
+      <h3>All Customers</h3>
+    
+        <table class="table table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Phone Number</th>
+              <th scope="col">Account Credit</th>
+              <th scope="col">Number of Movies Checked Out</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.makeCollection()}
+          </tbody>
+        </table>
+    
       </div>
     );
   }
+};
+
+CustomerCollection.propTypes = {
+  setCustomerCallback: PropTypes.func.isRequired,
+  customers: PropTypes.array.isRequired,
 };
 
 export default CustomerCollection;

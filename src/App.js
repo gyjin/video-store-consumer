@@ -23,8 +23,10 @@ class App extends Component {
       makeRentalError: '',
       movies: [],
       rentals: [],
+      customers: [],
       movieError: '',
       rentalError: '',
+      customerError: '',
       newRentalError: '',
       successRental: '',
     };    
@@ -38,7 +40,7 @@ class App extends Component {
       });
     })
     .catch((error) => {
-      this.setState({ movieError: error.message });    
+      this.setState({movieError: error.message });    
     });
 
     const rentals = 'http://localhost:3000/rentals/overdue'
@@ -47,6 +49,16 @@ class App extends Component {
     })
     .catch((error) => {
       this.setState({rentalError: error.message}); 
+    });
+
+    const customers = 'http://localhost:3000/customers'
+    axios.get(customers).then((response) => {
+      this.setState({
+        customers: response.data,
+      });
+    })
+    .catch((error) => {
+      this.setState({customerError: error.message});
     });
   }
 
@@ -69,9 +81,11 @@ class App extends Component {
   }
 
   makeRental = () => {
-    console.log("make rental");
     let error;
-    if (this.state.selectedCustomer === '') {
+    if (this.state.selectedCustomer === '' && this.state.selectedMovie === '') {
+      error = "You must select a movie and a customer to check-out."
+      this.setState({makeRentalError: error});
+    } else if (this.state.selectedCustomer === '') {
       error = "You must select a customer to check-out."
       this.setState({makeRentalError: error});
     } else if (this.state.selectedMovie === '') {
@@ -80,15 +94,20 @@ class App extends Component {
     } else {
       error = '';
       this.setState({makeRentalError: error});
-      let date = new Date()
+      let date = new Date();
+      let due = new Date(date.setDate(date.getDate() + 7));
       let params = {
         customer_id: this.state.selectedCustomer.customerId,
-        due_date: date
+        due_date: due
       };
 
-      axios.post('http://localhost:3000/rentals/' + `${this.state.selectedMovie.title}` + '/check-out', params)
+      const address = 'http://localhost:3000/rentals/';
+      const addressEnd = '/check-out'
+      const title = this.state.selectedMovie.title
+
+      axios.post(address + title + addressEnd, params)
       .then((response) => {
-        this.setState({successRental: 'Successfully checked-out.'})
+        this.setState({successRental: 'Successfully checked-out!'})
       })
       .catch((error) => {
         this.setState({newRentalError: error.message})
@@ -126,18 +145,35 @@ class App extends Component {
               <Link to="/rentals">Overdue Rentals</Link>
             </li>
           </ul>
-          <p>Selected customer: {this.state.selectedCustomer.name}</p>
-          <p>Selected movie: {this.state.selectedMovie.title}</p>
 
-          <p>
-            Rent this movie to this customer: {this.state.makeRentalError} <button onClick={this.makeRental}>Make rental</button>
-            {this.state.successRental}
-          </p>
+          <section>
 
+            <div class='selected'>
+              Selected customer: {this.state.selectedCustomer.name}
+            </div>
+            <br />
+
+            <div class='selected'>
+              Selected movie: {this.state.selectedMovie.title}
+            </div>
+            <br />
+
+            <button onClick={this.makeRental} type="button" class="btn btn-outline-secondary space-under-rental">
+              Rent this movie to this customer
+            </button>
+            <br />
+
+            <div class='rental-error'>
+              {this.state.makeRentalError}
+            </div>
+
+            <div class='rental-success'>
+              {this.state.successRental}
+            </div>
+      
+          </section>
         </nav>
 
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
         <div class="container">
         <Switch>
           <Route path="/search">
@@ -145,7 +181,6 @@ class App extends Component {
               searchChangeCallback={this.searchChangeCallback}
               searchTerm={this.state.searchTerm}
               addMovieToLibraryCallback={this.addMovieToLibraryCallback}
-
             />
           </Route>
 
@@ -159,6 +194,7 @@ class App extends Component {
           <Route path="/customers">
             <CustomerCollection 
               setCustomerCallback={this.setCustomerCallback}
+              customers={this.state.customers}
             /> 
           </Route>
 
@@ -183,7 +219,7 @@ class App extends Component {
 function Home() {
   return <div>
     <h2>Welcome to the best movie site ever...</h2>
-    <iframe src="https://giphy.com/embed/jpQkuoHi7JZY14yIZf" width="400" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/pepsi-love-romance-cola-occasions-jpQkuoHi7JZY14yIZf">via GIPHY</a></p>
+    <iframe src="https://giphy.com/embed/jpQkuoHi7JZY14yIZf" title="frame" width="400" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/pepsi-love-romance-cola-occasions-jpQkuoHi7JZY14yIZf">via GIPHY</a></p>
   </div>;
 }
 
