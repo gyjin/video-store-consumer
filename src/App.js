@@ -138,6 +138,7 @@ class App extends Component {
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
+        <div class="container">
         <Switch>
           <Route path="/search">
             <Search
@@ -172,6 +173,7 @@ class App extends Component {
           </Route>
 
         </Switch>
+        </div>
       </div>
     </Router>
     );
@@ -179,7 +181,10 @@ class App extends Component {
 }
 
 function Home() {
-  return <h2>This is home page</h2>;
+  return <div>
+    <h2>Welcome to the best movie site ever...</h2>
+    <iframe src="https://giphy.com/embed/jpQkuoHi7JZY14yIZf" width="400" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/pepsi-love-romance-cola-occasions-jpQkuoHi7JZY14yIZf">via GIPHY</a></p>
+  </div>;
 }
 
 export default App;
