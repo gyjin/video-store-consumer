@@ -30,10 +30,22 @@ class MovieCollection extends React.Component {
   render () {
     return (
       <div>
-      <h3>Movies</h3>
-      <ul>
-        {this.makeCollection()}
-      </ul>
+      <h3>All Movies</h3>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" width="15%">Title</th>
+              <th scope="col" width="50%">Overview</th>
+              <th scope="col">Release Date</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.makeCollection()}
+          </tbody>
+        </table>
+
       </div>
     );
   }

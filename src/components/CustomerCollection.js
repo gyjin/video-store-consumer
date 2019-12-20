@@ -36,7 +36,7 @@ class CustomerCollection extends React.Component {
   render () {
     return (
       <div>
-      <h3>Customers</h3>
+      <h3>All Customers</h3>
     
         <table class="table">
           <thead>

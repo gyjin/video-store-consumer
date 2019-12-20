@@ -8,10 +8,12 @@ const Movie = (props) => {
   }
 
   return (
-    <li>
-      {props.title} 
-      <button onClick={ selectMovie }>Select this movie</button>
-    </li>
+    <tr>
+      <td>{props.title}</td>
+      <td>{props.overview}</td>
+      <td>{props.releaseDate}</td>
+      <td><button onClick={ selectMovie }>Select this movie</button></td>
+    </tr>
   );
 };
 
