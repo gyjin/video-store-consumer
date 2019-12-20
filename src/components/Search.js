@@ -68,9 +68,6 @@ class Search extends Component {
           </div>
         </div>
 
-
- 
-
       <strong>Search Results: </strong>
       <div className="flex-container wrap">
       {this.makeSearchCollection()}

@@ -20,9 +20,10 @@ class RentalCollection extends React.Component {
         checkoutDate={rental.checkout_date}
         key={i}
       />;
-    }
+      }
     );
-      return rentalCollection;
+
+    return rentalCollection;
   }
 
   render () {

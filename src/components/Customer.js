@@ -8,10 +8,13 @@ const Customer = (props) => {
   }
 
   return (
-    <li>
-      {props.name} 
-      <button onClick={ selectCustomer }>Select this customer</button>
-    </li>
+    <tr>
+      <td>{props.name}</td>
+      <td>{props.phone}</td>
+      <td>{props.accountCredit}</td>
+      <td>{props.moviesCheckedOutCount}</td>
+      <td><button onClick={ selectCustomer }>Select this customer</button></td>
+    </tr>
   );
 };
 

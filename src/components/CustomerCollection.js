@@ -27,7 +27,7 @@ class CustomerCollection extends React.Component {
         selectCustomerCallback={this.props.setCustomerCallback}
         key={i}
       />;
-    }
+      }
     );
 
     return customerCollection;
@@ -37,9 +37,22 @@ class CustomerCollection extends React.Component {
     return (
       <div>
       <h3>Customers</h3>
-      <ul>
-        {this.makeCollection()}
-      </ul>
+    
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Phone Number</th>
+              <th scope="col">Account Credit</th>
+              <th scope="col">Number of Movies Checked Out</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.makeCollection()}
+          </tbody>
+        </table>
+    
       </div>
     );
   }
