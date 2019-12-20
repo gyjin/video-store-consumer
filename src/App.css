@@ -70,3 +70,8 @@ nav li a:hover {
   margin: 10px;
 }
 
+.space-under-rental {
+  display: block;
+  margin-bottom: 20px;
+}
+

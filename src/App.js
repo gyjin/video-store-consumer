@@ -11,8 +11,6 @@ import CustomerCollection from './components/CustomerCollection';
 import MovieCollection from './components/MovieCollection';
 import RentalCollection from './components/RentalCollection';
 import axios from 'axios';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import Button from 'react-bootstrap/Button'
 
 class App extends Component {
   constructor(props) {
@@ -83,7 +81,6 @@ class App extends Component {
   }
 
   makeRental = () => {
-    console.log("make rental");
     let error;
     if (this.state.selectedCustomer === '' && this.state.selectedMovie === '') {
       error = "You must select a movie and a customer to check-out."
@@ -104,7 +101,11 @@ class App extends Component {
         due_date: due
       };
 
-      axios.post('http://localhost:3000/rentals/' + `${this.state.selectedMovie.title}` + '/check-out', params)
+      const address = 'http://localhost:3000/rentals/';
+      const addressEnd = '/check-out'
+      const title = this.state.selectedMovie.title
+
+      axios.post(address + title + addressEnd, params)
       .then((response) => {
         this.setState({successRental: 'Successfully checked-out!'})
       })
@@ -157,27 +158,22 @@ class App extends Component {
             </div>
             <br />
 
-            <button onClick={this.makeRental} type="button" class="btn btn-outline-secondary">
+            <button onClick={this.makeRental} type="button" class="btn btn-outline-secondary space-under-rental">
               Rent this movie to this customer
-              {/* show rental error is possible in alert */}
-              {/* show successRental as well in alert */}
             </button>
             <br />
 
             <div class='rental-error'>
-            {this.state.makeRentalError}
+              {this.state.makeRentalError}
             </div>
 
             <div class='rental-success'>
-            {this.state.successRental}
+              {this.state.successRental}
             </div>
       
           </section>
-
         </nav>
 
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
         <div class="container">
         <Switch>
           <Route path="/search">
@@ -185,7 +181,6 @@ class App extends Component {
               searchChangeCallback={this.searchChangeCallback}
               searchTerm={this.state.searchTerm}
               addMovieToLibraryCallback={this.addMovieToLibraryCallback}
-
             />
           </Route>
 
@@ -224,7 +219,7 @@ class App extends Component {
 function Home() {
   return <div>
     <h2>Welcome to the best movie site ever...</h2>
-    <iframe src="https://giphy.com/embed/jpQkuoHi7JZY14yIZf" width="400" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/pepsi-love-romance-cola-occasions-jpQkuoHi7JZY14yIZf">via GIPHY</a></p>
+    <iframe src="https://giphy.com/embed/jpQkuoHi7JZY14yIZf" title="frame" width="400" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/pepsi-love-romance-cola-occasions-jpQkuoHi7JZY14yIZf">via GIPHY</a></p>
   </div>;
 }
 

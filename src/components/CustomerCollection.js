@@ -1,6 +1,6 @@
 import React from 'react';
 import Customer from './Customer';
-import axios from 'axios';
+import PropTypes from 'prop-types';
 
 class CustomerCollection extends React.Component {
   constructor(props) {
@@ -38,8 +38,8 @@ class CustomerCollection extends React.Component {
       <div>
       <h3>All Customers</h3>
     
-        <table class="table">
-          <thead>
+        <table class="table table-hover">
+          <thead class="thead-dark">
             <tr>
               <th scope="col">Name</th>
               <th scope="col">Phone Number</th>
@@ -56,6 +56,11 @@ class CustomerCollection extends React.Component {
       </div>
     );
   }
+};
+
+CustomerCollection.propTypes = {
+  setCustomerCallback: PropTypes.func.isRequired,
+  customers: PropTypes.array.isRequired,
 };
 
 export default CustomerCollection;

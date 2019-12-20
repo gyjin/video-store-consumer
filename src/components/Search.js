@@ -15,7 +15,8 @@ class Search extends Component {
 // TODO: Instead of loading the api on mount, call it the api when you enter into 
 // an input box. Or click a button. Pass the value into the api.
   apiCall (query) {
-    axios.get('http://localhost:3000/movies?query=' + `${query}`)
+    const searchAddress = 'http://localhost:3000/movies?query=';
+    axios.get(searchAddress + `${query}`)
       .then((response) => {
           this.setState({
           allMovies: response.data,
@@ -28,7 +29,7 @@ class Search extends Component {
   makeSearchCollection () {
     const searchCollection = this.state.allMovies.map((movie, i) => {
       return <div className="flex-item" key={i}> <strong>{movie.title}</strong>
-          <img src={movie.image_url}></img>
+          <img src={movie.image_url} alt="movie"></img>
           {/* <p>Id: {movie.id}</p> */}
           <p>{movie.overview}</p>
           <p className="release-date">Release Date: {movie.release_date}</p>    
@@ -48,7 +49,6 @@ class Search extends Component {
   render() {
     return (
       <section>
-      
 
         <div class="input-group mb-3">
           <input 
@@ -80,6 +80,7 @@ class Search extends Component {
 Search.propTypes = {
   searchChangeCallback: PropTypes.func.isRequired,
   searchTerm: PropTypes.string.isRequired,
+  addMovieToLibraryCallback: PropTypes.func.isRequired,
 };
 
 export default Search;
